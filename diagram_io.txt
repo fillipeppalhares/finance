@@ -1,0 +1,62 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table funds {
+  id integer [primary key]
+  description varchar
+  bio text
+}
+
+// tenant
+Table chart_of_accounts {
+  id integer [primary key]
+  description varchar  
+  money varchar
+  fund_id integer
+}
+
+Table accounts {
+  id integer [primary key]
+  description varchar
+  account_number varchar
+  ancestry varchar
+  chart_of_account_id integer
+  accountable_type varchar
+  accountable_id integer
+}
+
+Table analytic_accounts {
+  id integer [primary key]
+  amount bool
+}
+
+Table synthetic_accounts {
+  id integer [primary key]
+}
+
+Table financial_transactions {
+  id integer [primary key]
+  description varchar
+  date date
+  chart_of_account_id integer
+}
+
+Table entries {
+  id integer [primary key]
+  description varchar
+  entry_type integer
+  value_cents integer
+  chart_of_account_id integer
+  analytic_account_id integer
+  financial_transaction_id integer
+}
+
+Ref: chart_of_accounts.fund_id > funds.id
+
+Ref: accounts.chart_of_account_id > chart_of_accounts.id
+Ref: financial_transactions.chart_of_account_id > chart_of_accounts.id
+Ref: entries.chart_of_account_id > chart_of_accounts.id
+
+Ref: entries.analytic_account_id > analytic_accounts.id
+
+Ref: entries.financial_transaction_id > financial_transactions.id
