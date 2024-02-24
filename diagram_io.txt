@@ -1,7 +1,7 @@
 // Use DBML to define your database structure
 // Docs: https://dbml.dbdiagram.io/docs
 
-Table funds {
+Table entities {
   id integer [primary key]
   description varchar
   bio text
@@ -10,9 +10,9 @@ Table funds {
 // tenant
 Table chart_of_accounts {
   id integer [primary key]
-  description varchar  
+  description varchar
   money varchar
-  fund_id integer
+  entity_id integer
 }
 
 Table accounts {
@@ -27,11 +27,22 @@ Table accounts {
 
 Table analytic_accounts {
   id integer [primary key]
-  amount bool
 }
 
 Table synthetic_accounts {
   id integer [primary key]
+}
+
+Table amount_permissions {
+  id integer [primary key]
+  entry_type integer
+  analytic_account_id integer
+}
+
+Table date_permissions {
+  id integer [primary key]
+  entry_type integer
+  analytic_account_id integer
 }
 
 Table financial_transactions {
@@ -51,12 +62,36 @@ Table entries {
   financial_transaction_id integer
 }
 
-Ref: chart_of_accounts.fund_id > funds.id
+Table amount_entries {
+  id integer [primary key]
+  entry_id integer
+  amount integer
+}
+
+Table date_entries {
+  id integer [primary key]
+  entry_id integer
+  date date
+}
+
+Table entry_groups {
+  id integer [primary key]
+  entry_id integer
+  group integer
+}
+
+Ref: chart_of_accounts.entity_id > entities.id
 
 Ref: accounts.chart_of_account_id > chart_of_accounts.id
 Ref: financial_transactions.chart_of_account_id > chart_of_accounts.id
 Ref: entries.chart_of_account_id > chart_of_accounts.id
 
 Ref: entries.analytic_account_id > analytic_accounts.id
+Ref: amount_permissions.analytic_account_id > analytic_accounts.id
+Ref: date_permissions.analytic_account_id > analytic_accounts.id
 
 Ref: entries.financial_transaction_id > financial_transactions.id
+
+Ref: amount_entries.entry_id > entries.id
+Ref: date_entries.entry_id > entries.id
+Ref: entry_groups.entry_id > entries.id
