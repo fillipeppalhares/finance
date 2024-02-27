@@ -1,0 +1,5 @@
+<%= f.simple_fields_for :account do |ff| %>
+  <%= ff.input :description %>
+  <%= ff.input :account_number %>
+  <%= ff.association :chart_of_account %>
+<% end %>

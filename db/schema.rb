@@ -10,9 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_27_001055) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_27_003855) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.string "description"
+    t.string "account_number"
+    t.string "ancestry"
+    t.bigint "chart_of_account_id", null: false
+    t.string "accountable_type", null: false
+    t.bigint "accountable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["accountable_type", "accountable_id"], name: "index_accounts_on_accountable"
+    t.index ["ancestry"], name: "index_accounts_on_ancestry"
+    t.index ["chart_of_account_id"], name: "index_accounts_on_chart_of_account_id"
+  end
+
+  create_table "analytic_accounts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "chart_of_accounts", force: :cascade do |t|
     t.string "description"
@@ -30,5 +49,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_27_001055) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "synthetic_accounts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "accounts", "chart_of_accounts"
   add_foreign_key "chart_of_accounts", "entities"
 end
