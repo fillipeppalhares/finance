@@ -1,0 +1,19 @@
+<%= model_name %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Descrição</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @objects.each do |object| %>
+      <tr>
+        <td><%= link_to object.id, "#{url_for}/#{object.id}" %></td>
+        <td><%= object.description %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

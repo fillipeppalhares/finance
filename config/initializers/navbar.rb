@@ -1,0 +1,1 @@
+NAVBAR = %i[entity].freeze

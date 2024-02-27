@@ -1,0 +1,19 @@
+<div class="container my-5">
+  <%= simple_form_for @object, defaults: { disabled: action_name == "show" } do |f| %>
+    <div class="card pb-3 shadow-sm bg-white rounded">
+      <div class="container">
+        <div class="card-body">
+          <%= render "form_inputs", f: f %>
+        </div>
+      </div>
+    </div>
+
+    <div class="card pb-3 mt-3 shadow-sm bg-white rounded">
+      <div class="container">
+        <div class="card-body">
+          <%= render "action_bar", f: f %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
