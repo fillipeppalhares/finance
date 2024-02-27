@@ -1,1 +1,1 @@
-NAVBAR = %i[entity].freeze
+NAVBAR = %i[entity chart_of_account].freeze

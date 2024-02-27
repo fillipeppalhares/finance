@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_25_163550) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_27_001055) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chart_of_accounts", force: :cascade do |t|
+    t.string "description"
+    t.string "money"
+    t.bigint "entity_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["entity_id"], name: "index_chart_of_accounts_on_entity_id"
+  end
 
   create_table "entities", force: :cascade do |t|
     t.string "description"
@@ -21,4 +30,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_25_163550) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "chart_of_accounts", "entities"
 end
