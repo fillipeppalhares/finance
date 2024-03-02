@@ -6,6 +6,6 @@ class AnalyticAccountsController < ApplicationController
   private
 
   def set_params
-    params.require(:analytic_account).permit(:id, account_attributes: %i[id account_number description ancestry accountable_type accountable_id chart_of_account_id])
+    params.require(:analytic_account).permit(:id, account_attributes: %i[id account_number description parent_id accountable_type accountable_id chart_of_account_id])
   end
 end

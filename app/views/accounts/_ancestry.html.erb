@@ -1,0 +1,3 @@
+<%= f.simple_fields_for :account, defaults: { required: } do |ff| %>
+  <%= ff.input :parent_id, collection: SyntheticAccount.all %>
+<% end %>
